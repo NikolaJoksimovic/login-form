@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { BadRequestErorr } = require("../errors/index");
+const { BadRequestErorr, AuthenticationError } = require("../errors/index");
 const { StatusCodes } = require("http-status-codes");
 
 const getAllUsers = async (req, res) => {
@@ -8,7 +8,7 @@ const getAllUsers = async (req, res) => {
 const createAcc = async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    // Authentication error..
+    throw new AuthenticationError("Passwords do not match..");
   }
   const tempUser = { username, email, password };
   const user = await User.create({ ...tempUser });

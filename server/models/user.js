@@ -28,15 +28,12 @@ const userSchema = mongoose.Schema({
 });
 
 // mognoose middleware
-// ocemo da pre nego sto sacuvamo usera hashujemo password..
 userSchema.pre("save", async function () {
-  // mora await..
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// mongose scema methods
-// Zaboravio si return...
+// mongose schema methods
 userSchema.methods.createJWT = function () {
   return jwt.sign(
     { userId: this._id, username: this.username },
