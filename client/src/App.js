@@ -1,17 +1,11 @@
-import UserList from "./components/userList";
 import { useState, useEffect } from "react";
+import UserList from "./components/userList";
 import UserForm from "./components/userForm";
 
 function App() {
   const [users, setUsers] = useState([{}]);
 
-  useEffect(() => {
-    // fetch("/")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setUsers({ data });
-    //   });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className='app'>
