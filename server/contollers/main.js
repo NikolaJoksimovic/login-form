@@ -7,15 +7,16 @@ const getAllUsers = async (req, res) => {
 };
 const createAcc = async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
-  const tempUser = { username, email, password };
-  console.log(tempUser);
-  const user = await User.create({ ...tempUser });
-  console.log(user);
-  if (!user) {
-    throw new BadRequestErorr(
-      "Something went wrong with creating your account.."
-    );
+  if (password !== confirmPassword) {
+    // Authentication error..
   }
-  res.status(200).json({ username: "joksa" });
+  const tempUser = { username, email, password };
+  const user = await User.create({ ...tempUser });
+
+  const token = user.createJWT();
+  console.log(token);
+  res
+    .status(StatusCodes.CREATED)
+    .json({ user: { userId: user._id, username: user.username }, token });
 };
 module.exports = { getAllUsers, createAcc };

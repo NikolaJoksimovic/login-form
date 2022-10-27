@@ -1,8 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+
+// database connection
 const connectDB = require("./db/connectDB");
+// router
 const mainRouter = require("./routes/main");
+// middleware functions
 const errorHandlerMiddleware = require("./midleware/error-handler");
 const notFound = require("./midleware/not-found");
 
