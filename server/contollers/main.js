@@ -12,11 +12,14 @@ const createAcc = async (req, res) => {
   }
   const tempUser = { username, email, password };
   const user = await User.create({ ...tempUser });
-
   const token = user.createJWT();
-  console.log(token);
-  res
-    .status(StatusCodes.CREATED)
-    .json({ user: { userId: user._id, username: user.username }, token });
+  res.status(StatusCodes.CREATED).json({
+    user: {
+      userId: user._id,
+      username: user.username,
+      password: user.password,
+    },
+    token,
+  });
 };
 module.exports = { getAllUsers, createAcc };
