@@ -14,6 +14,7 @@ app.use(express.json());
 
 // routes
 app.use("/", mainRouter);
+app.use("/home", mainRouter);
 app.use("/register", mainRouter);
 
 // middleware

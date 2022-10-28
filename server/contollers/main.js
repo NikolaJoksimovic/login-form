@@ -2,8 +2,13 @@ const User = require("../models/user");
 const { BadRequestErorr, AuthenticationError } = require("../errors/index");
 const { StatusCodes } = require("http-status-codes");
 
+const serverIsUp = async (req, res) => {
+  res.send("Server is up");
+};
+
 const getAllUsers = async (req, res) => {
-  res.send("get all users..");
+  const allUsers = await User.find({});
+  res.status(StatusCodes.OK).json({ users: allUsers });
 };
 const createAcc = async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
@@ -22,4 +27,4 @@ const createAcc = async (req, res) => {
     token,
   });
 };
-module.exports = { getAllUsers, createAcc };
+module.exports = { serverIsUp, getAllUsers, createAcc };

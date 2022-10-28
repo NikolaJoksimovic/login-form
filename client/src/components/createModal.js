@@ -11,7 +11,7 @@ const CreateModal = () => {
   });
 
   const handleSubmit = async () => {
-    await axios.post("./register", user);
+    await axios.post("/register", user);
   };
   const handleChange = (e) => {
     const id = e.target.id;

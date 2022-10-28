@@ -5,11 +5,9 @@ import UserForm from "./components/userForm";
 function App() {
   const [users, setUsers] = useState([{}]);
 
-  useEffect(() => {}, []);
-
   return (
     <div className='app'>
-      <UserList users={users}></UserList>
+      <UserList></UserList>
       <UserForm></UserForm>
     </div>
   );
