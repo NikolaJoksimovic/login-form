@@ -27,4 +27,19 @@ const createAcc = async (req, res) => {
     token,
   });
 };
-module.exports = { serverIsUp, getAllUsers, createAcc };
+
+const loginAcc = async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new BadRequestErorr("Invalid credentials(username)..");
+  }
+  const user = await User.findOne({ username });
+  const correctPassword = await user.comparePassword(password);
+  console.log(correctPassword);
+  if (!correctPassword) {
+    throw new BadRequestErorr("Invalid credentials(password)..");
+  }
+  const token = user.createJWT();
+  res.json({ user: { username: username }, token });
+};
+module.exports = { serverIsUp, getAllUsers, createAcc, loginAcc };
