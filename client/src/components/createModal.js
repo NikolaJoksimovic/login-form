@@ -1,8 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const CreateModal = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["userInfo"]);
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -10,14 +13,29 @@ const CreateModal = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = async () => {
-    await axios.post(`${window.location}/register`, user);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let url = window.location.href.substring(
+      0,
+      window.location.href.lastIndexOf("/")
+    );
+    url = "http://localhost:5000";
+
+    try {
+      const response = await axios.post(`${url}/register`, user);
+      const token = response.data.token;
+      setCookie("token", token);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleChange = (e) => {
-    const id = e.target.id;
+    const key = e.target.id;
     const value = e.target.value;
 
-    setUser({ ...user, [id]: value });
+    setUser({ ...user, [key]: value });
   };
 
   return (

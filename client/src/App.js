@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
-import UserList from "./components/userList";
-import UserForm from "./components/userForm";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [users, setUsers] = useState([{}]);
 
   return (
     <div className='app'>
-      <UserList></UserList>
-      <UserForm></UserForm>
+      <Router>
+        <Routes>
+          <Route path='/' index element={<Home></Home>}></Route>
+          <Route path='/dashboard' element={<Dashboard></Dashboard>}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
