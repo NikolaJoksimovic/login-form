@@ -9,14 +9,17 @@ const mainRouter = require("./routes/main");
 // middleware functions
 const errorHandlerMiddleware = require("./midleware/error-handler");
 const notFound = require("./midleware/not-found");
+const authenticationMiddleware = require("./midleware/authentication");
 
 app.use(express.json());
+app.use(express.static("public/build"));
 
 // routes
 app.use("/", mainRouter);
-app.use("/home", mainRouter);
+app.use("/users", mainRouter);
 app.use("/register", mainRouter);
 app.use("/login", mainRouter);
+app.use("/dashboard:id", authenticationMiddleware, mainRouter);
 
 // middleware
 app.use(errorHandlerMiddleware);

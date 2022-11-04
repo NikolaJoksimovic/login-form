@@ -1,31 +1,41 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const userSchema = mongoose.Schema({
   username: {
     type: String,
-    required: [true, "Username must be provided.."],
     minlength: 3,
     maxlength: 20,
+    unique: true,
+    required: [true, "Username must be provided.."],
   },
   email: {
     type: String,
     match: [
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Please provifr email",
+      "Please provide email",
     ],
+    minlength: 3,
     unique: true,
     required: [true, "Email must be provided.."],
-    minlength: 3,
   },
   password: {
     type: String,
     minlength: 5,
     required: [true, "Please enter a password"],
   },
+  confirmPassword: {
+    type: String,
+    minlength: 5,
+    required: [true, "Please confirm password"],
+  },
 });
+
+// plugins
+userSchema.plugin(uniqueValidator);
 
 // mognoose middleware
 userSchema.pre("save", async function () {
