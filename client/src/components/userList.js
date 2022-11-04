@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 const UserList = () => {
   const [backendData, setBackendData] = useState([]);
-  const [resStatus, setResStatus] = useState(200);
 
   const getUsers = async () => {
     let url = window.location.href.substring(
@@ -15,7 +14,6 @@ const UserList = () => {
     try {
       const response = await axios.get(`${url}/users`);
       setBackendData(response.data.users);
-      setResStatus(response.status);
     } catch (error) {
       // console.log(error);
     }
@@ -25,7 +23,7 @@ const UserList = () => {
     getUsers();
   }, []);
 
-  return resStatus === 200 ? (
+  return (
     <div>
       <ul>
         {backendData.map((item) => {
@@ -34,8 +32,6 @@ const UserList = () => {
       </ul>
       <hr />
     </div>
-  ) : (
-    <h2>Somethin went wrong while fetching users list</h2>
   );
 };
 

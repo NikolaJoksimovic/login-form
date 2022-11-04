@@ -28,7 +28,7 @@ const CreateModal = () => {
       setCookie("token", token);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.msg);
     }
   };
   const handleChange = (e) => {
