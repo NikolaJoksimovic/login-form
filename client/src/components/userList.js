@@ -6,7 +6,7 @@ const UserList = ({ users }) => {
   const [backendData, setBackendData] = useState([]);
 
   useEffect(() => {
-    axios.get("./home").then((response) => {
+    axios.get("./users").then((response) => {
       setBackendData(response.data.users);
     });
   }, []);
