@@ -16,9 +16,12 @@ const getAllUsers = async (req, res) => {
 const createAcc = async (req, res) => {
   const { password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    throw new AuthenticationError("Passwords do not match..");
+    throw new AuthenticationError("Passwords do not match.");
   }
   const user = await User.create(req.body);
+  if (!user) {
+    throw new BadRequestErorr("eroror");
+  }
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({
     user: {
@@ -33,12 +36,15 @@ const createAcc = async (req, res) => {
 const loginAcc = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    throw new BadRequestErorr("Invalid credentials(username)..");
+    throw new BadRequestErorr("Password and username must be provided.");
   }
   const user = await User.findOne({ username });
+  if (!user) {
+    throw new BadRequestErorr("Username or password is incorrect.");
+  }
   const correctPassword = await user.comparePassword(password);
   if (!correctPassword) {
-    throw new BadRequestErorr("Invalid credentials(password)..");
+    throw new BadRequestErorr("Password or username seem to be wrong.");
   }
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({
@@ -50,15 +56,9 @@ const loginAcc = async (req, res) => {
   });
 };
 
-// DASHBOARD ACCESS
-const getUserDashboard = async (req, res) => {
-  res.status(StatusCodes.OK).json({ ...req.body });
-};
-
 module.exports = {
   getHomePage,
   getAllUsers,
   createAcc,
   loginAcc,
-  getUserDashboard,
 };

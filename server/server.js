@@ -1,29 +1,33 @@
 require("dotenv").config();
+require("express-async-errors");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 // database connection
 const connectDB = require("./db/connectDB");
 // router
 const mainRouter = require("./routes/main");
+const dashRouter = require("./routes/dashboard");
 // middleware functions
-const errorHandlerMiddleware = require("./midleware/error-handler");
 const notFound = require("./midleware/not-found");
+const errorHandlerMiddleware = require("./midleware/error-handler");
 const authenticationMiddleware = require("./midleware/authentication");
 
-app.use(express.json());
 app.use(express.static("public/build"));
+app.use(express.json());
+app.use(cors());
 
 // routes
 app.use("/", mainRouter);
 app.use("/users", mainRouter);
 app.use("/register", mainRouter);
 app.use("/login", mainRouter);
-app.use("/dashboard:id", authenticationMiddleware, mainRouter);
+app.use("/dashboard", authenticationMiddleware, dashRouter);
 
 // middleware
-app.use(errorHandlerMiddleware);
 app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
 

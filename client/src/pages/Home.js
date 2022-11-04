@@ -4,7 +4,7 @@ import UserForm from "../components/userForm";
 
 const Home = () => {
   return (
-    <div>
+    <div className='home-container height-100 center-flex'>
       <UserList></UserList>
       <UserForm></UserForm>
     </div>

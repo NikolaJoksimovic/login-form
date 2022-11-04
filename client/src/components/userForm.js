@@ -41,8 +41,8 @@ const UserForm = () => {
     setShowCreateModal(!showCreateModal);
   };
   return (
-    <div>
-      <form action=''>
+    <div className='user-form center-flex'>
+      <form className='center-flex' action=''>
         <label htmlFor='username'>username</label>
         <input
           id='username'
@@ -60,8 +60,9 @@ const UserForm = () => {
         <button type='submit' onClick={handleClick}>
           login
         </button>
+        <h3>error message!</h3>
       </form>
-      <h3>dont have an account?</h3>
+      <h2>dont have an account?</h2>
       <button onClick={handleCreateAccount}>create account</button>
       {showCreateModal && <CreateModal></CreateModal>}
     </div>

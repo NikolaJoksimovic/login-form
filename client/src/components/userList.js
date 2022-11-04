@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { AiOutlineArrowDown } from "react-icons/ai";
 
 const UserList = () => {
   const [backendData, setBackendData] = useState([]);
@@ -24,7 +25,10 @@ const UserList = () => {
   }, []);
 
   return (
-    <div>
+    <div className='user-list height-100 '>
+      <button className='expand-btn'>
+        <AiOutlineArrowDown></AiOutlineArrowDown>
+      </button>
       <ul>
         {backendData.map((item) => {
           return <li key={item._id}>{item.username}</li>;

@@ -10,8 +10,9 @@ const authenticationMiddleware = async (req, res, next) => {
     throw new AuthenticationError("Token not provided..");
   }
   const token = authHeader.split(" ")[1];
+  // console.log(token);
   try {
-    const payload = jwt.verify(token, JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = { userId: payload.userId, username: payload.username };
   } catch (error) {
     throw new AuthenticationError("Token not provided.");

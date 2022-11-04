@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     minlength: 3,
     maxlength: 20,
     unique: true,
-    required: [true, "Username must be provided.."],
+    required: [true, "Username must be provided."],
   },
   email: {
     type: String,
@@ -20,17 +20,17 @@ const userSchema = mongoose.Schema({
     ],
     minlength: 3,
     unique: true,
-    required: [true, "Email must be provided.."],
+    required: [true, "Email must be provided."],
   },
   password: {
     type: String,
     minlength: 5,
-    required: [true, "Please enter a password"],
+    required: [true, "Please enter a password."],
   },
   confirmPassword: {
     type: String,
     minlength: 5,
-    required: [true, "Please confirm password"],
+    required: [true, "Please confirm password."],
   },
 });
 
