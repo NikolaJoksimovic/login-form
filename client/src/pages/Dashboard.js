@@ -10,8 +10,7 @@ const Dashboard = () => {
     let url =
       window.location.href.substring(0, window.location.href.lastIndexOf("/")) +
       "/dashboard";
-    console.log(url);
-    url = "http://localhost:5000/dashboard";
+    // url = "http://localhost:5000/dashboard";
     try {
       const response = await axios.get(`${url}/dashboard`, {
         headers: {
@@ -27,17 +26,19 @@ const Dashboard = () => {
   useEffect(() => {
     getDashboardInfo();
   }, []);
-
-  const canvasEl = document.querySelector(".canvas");
-
   return (
     <section className='dashboard center-flex'>
       <h1>
-        {userInfo?.username}
-        <span>'s dashboard</span>
+        {userInfo?.username + "'s"}
+        <span> dashboard</span>
       </h1>
-      <div className='text-quote'>
-        <canvas className='canvas'></canvas>
+      <div className='text-quote center-flex'>
+        <div id='canvas'>
+          <h3>
+            Teachers teach and do the world good.
+            <span>Kings just rule and are often misunderstood.</span>
+          </h3>
+        </div>
       </div>
     </section>
   );
