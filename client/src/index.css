@@ -225,6 +225,16 @@ button {
   margin: 2.5em 0 1.5em 0;
   flex-direction: column;
 }
+.err-msg {
+  padding: 0.5em;
+  text-align: center;
+  font-size: 1em;
+  overflow: hidden;
+  width: 100%;
+  max-height: 100px;
+  word-wrap: break-word;
+  overflow-y: auto;
+}
 .create-acc-q button {
   padding: var(--padding-button);
   margin: 1em 0 0 0;

@@ -13,6 +13,7 @@ const CreateModal = ({ setShowCreateModal }) => {
     password: "",
     confirmPassword: "",
   });
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -21,7 +22,7 @@ const CreateModal = ({ setShowCreateModal }) => {
       0,
       window.location.href.lastIndexOf("/")
     );
-    // url = "http://localhost:5000";
+    url = "http://localhost:5000";
 
     try {
       const response = await axios.post(`${url}/register`, user);
@@ -29,7 +30,8 @@ const CreateModal = ({ setShowCreateModal }) => {
       setCookie("token", token);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error.response.data.msg);
+      console.log(error.response);
+      setErrorMsg(error.response.data.msg);
     }
   };
   const handleChange = (e) => {
@@ -82,7 +84,7 @@ const CreateModal = ({ setShowCreateModal }) => {
           value={user.confirmPassword}
           required={true}
         />
-
+        {errorMsg && <h3 className='err-msg'>{errorMsg}</h3>}
         <button type='submit' onClick={handleSubmit}>
           register user
         </button>

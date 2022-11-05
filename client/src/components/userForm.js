@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import CreateModal from "./createModal";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -10,11 +10,12 @@ const UserForm = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [user, setUser] = useState({ username: "", password: "" });
+  const [errorMsg, setErrorMsg] = useState(null);
   let url = window.location.href.substring(
     0,
     window.location.href.lastIndexOf("/")
   );
-  // url = "http://localhost:5000";
+  url = "http://localhost:5000";
 
   // create acc request
   const handleClick = async (e) => {
@@ -29,6 +30,7 @@ const UserForm = () => {
       navigate("/dashboard");
     } catch (error) {
       console.log(error.response.data.msg);
+      setErrorMsg(error.response.data.msg);
     }
   };
 
@@ -63,7 +65,7 @@ const UserForm = () => {
         <button type='submit' onClick={handleClick}>
           login
         </button>
-        <h3>error message!</h3>
+        {errorMsg && <h3 className='err-msg'>{errorMsg}</h3>}
       </form>
       <div className='create-acc-q center-flex'>
         <h2>dont have an account?</h2>
