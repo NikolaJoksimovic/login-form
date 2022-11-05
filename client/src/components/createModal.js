@@ -22,7 +22,7 @@ const CreateModal = ({ setShowCreateModal }) => {
       0,
       window.location.href.lastIndexOf("/")
     );
-    url = "http://localhost:5000";
+    // url = "http://localhost:5000";
 
     try {
       const response = await axios.post(`${url}/register`, user);

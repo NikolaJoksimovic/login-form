@@ -15,7 +15,7 @@ const UserForm = () => {
     0,
     window.location.href.lastIndexOf("/")
   );
-  url = "http://localhost:5000";
+  // url = "http://localhost:5000";
 
   // create acc request
   const handleClick = async (e) => {
