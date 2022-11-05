@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { AiOutlineArrowDown } from "react-icons/ai";
+import { TbArrowBigRight } from "react-icons/tb";
 
 const UserList = () => {
   const [backendData, setBackendData] = useState([]);
@@ -24,18 +24,32 @@ const UserList = () => {
     getUsers();
   }, []);
 
+  const listOverlayEl = document.querySelector(".user-list-overlay");
+  const userListEl = document.querySelector(".user-list");
+  const expandBtnEl = document.querySelector(".expand-btn");
+  const handleClick = () => {
+    listOverlayEl.classList.toggle("user-list-overlay-show");
+    userListEl.classList.toggle("user-list-show");
+    expandBtnEl.classList.toggle("expand-btn-rotate");
+  };
+
   return (
-    <div className='user-list height-100 '>
-      <button className='expand-btn'>
-        <AiOutlineArrowDown></AiOutlineArrowDown>
+    <>
+      <button className='expand-btn center-flex' onClick={handleClick}>
+        <TbArrowBigRight></TbArrowBigRight>
       </button>
-      <ul>
-        {backendData.map((item) => {
-          return <li key={item._id}>{item.username}</li>;
-        })}
-      </ul>
-      <hr />
-    </div>
+      <div className='user-list-container'>
+        <div className='user-list-overlay'></div>
+        <div className='user-list'>
+          <h3>user list</h3>
+          <ul>
+            {backendData.map((item) => {
+              return <li key={item._id}>{item.username}</li>;
+            })}
+          </ul>
+        </div>
+      </div>
+    </>
   );
 };
 

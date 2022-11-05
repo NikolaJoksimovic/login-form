@@ -3,8 +3,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { AiOutlineClose } from "react-icons/ai";
 
-const CreateModal = () => {
+const CreateModal = ({ setShowCreateModal }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["userInfo"]);
   const [user, setUser] = useState({
     username: "",
@@ -20,7 +21,7 @@ const CreateModal = () => {
       0,
       window.location.href.lastIndexOf("/")
     );
-    url = "http://localhost:5000";
+    // url = "http://localhost:5000";
 
     try {
       const response = await axios.post(`${url}/register`, user);
@@ -37,10 +38,15 @@ const CreateModal = () => {
 
     setUser({ ...user, [key]: value });
   };
-
+  const handleCloseBtn = () => {
+    setShowCreateModal(false);
+  };
   return (
-    <div>
-      <form action=''>
+    <div className='create-form center-flex'>
+      <button className='cls-btn' onClick={handleCloseBtn}>
+        <AiOutlineClose></AiOutlineClose>
+      </button>
+      <form action='' className=' center-flex'>
         <label htmlFor='username'>username</label>
         <input
           id='username'
@@ -78,7 +84,7 @@ const CreateModal = () => {
         />
 
         <button type='submit' onClick={handleSubmit}>
-          create account
+          register user
         </button>
       </form>
     </div>

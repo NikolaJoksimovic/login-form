@@ -4,10 +4,10 @@ import UserForm from "../components/userForm";
 
 const Home = () => {
   return (
-    <div className='home-container height-100 center-flex'>
+    <section className='home-container height-100 center-flex'>
       <UserList></UserList>
       <UserForm></UserForm>
-    </div>
+    </section>
   );
 };
 

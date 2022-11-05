@@ -10,8 +10,11 @@ const UserForm = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [user, setUser] = useState({ username: "", password: "" });
-
-  let url = "http://localhost:5000";
+  let url = window.location.href.substring(
+    0,
+    window.location.href.lastIndexOf("/")
+  );
+  url = "http://localhost:5000";
 
   // create acc request
   const handleClick = async (e) => {
@@ -62,9 +65,13 @@ const UserForm = () => {
         </button>
         <h3>error message!</h3>
       </form>
-      <h2>dont have an account?</h2>
-      <button onClick={handleCreateAccount}>create account</button>
-      {showCreateModal && <CreateModal></CreateModal>}
+      <div className='create-acc-q center-flex'>
+        <h2>dont have an account?</h2>
+        <button onClick={handleCreateAccount}>create account</button>
+        {showCreateModal && (
+          <CreateModal setShowCreateModal={setShowCreateModal}></CreateModal>
+        )}
+      </div>
     </div>
   );
 };

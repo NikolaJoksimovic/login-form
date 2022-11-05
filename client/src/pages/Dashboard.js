@@ -7,19 +7,17 @@ const Dashboard = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const getDashboardInfo = async () => {
     // ovde vise nisi na / nego na /dashboard ali window.location trebalo bi da resi to...//
-    let url = window.location.href.substring(
-      0,
-      window.location.href.lastIndexOf("/")
-    );
+    let url =
+      window.location.href.substring(0, window.location.href.lastIndexOf("/")) +
+      "/dashboard";
+    console.log(url);
+    url = "http://localhost:5000/dashboard";
     try {
-      const response = await axios.get(
-        "http://localhost:5000/dashboard/dashboard",
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${url}/dashboard`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      });
       if (response) {
         setUserInfo(response.data);
       }
@@ -30,17 +28,18 @@ const Dashboard = () => {
     getDashboardInfo();
   }, []);
 
+  const canvasEl = document.querySelector(".canvas");
+
   return (
-    <div>
+    <section className='dashboard center-flex'>
       <h1>
         {userInfo?.username}
         <span>'s dashboard</span>
       </h1>
-      <p>
-        Teaches teach and do good for this world. Kings just rule and are often
-        misunderstood.
-      </p>
-    </div>
+      <div className='text-quote'>
+        <canvas className='canvas'></canvas>
+      </div>
+    </section>
   );
 };
 
