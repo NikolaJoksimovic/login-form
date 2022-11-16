@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { AiOutlineClose } from "react-icons/ai";
-
+import data from "../url.json";
 const CreateModal = ({ setShowCreateModal }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["userInfo"]);
   const [user, setUser] = useState({
@@ -18,19 +18,14 @@ const CreateModal = ({ setShowCreateModal }) => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let url = window.location.href.substring(
-      0,
-      window.location.href.lastIndexOf("/")
-    );
-    // url = "http://localhost:5000";
 
+    const url = data.url;
     try {
       const response = await axios.post(`${url}/register`, user);
       const token = response.data.token;
       setCookie("token", token);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error.response);
       setErrorMsg(error.response.data.msg);
     }
   };

@@ -2,16 +2,14 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { TbArrowBigRight } from "react-icons/tb";
+import data from "../url.json";
 
 const UserList = () => {
   const [backendData, setBackendData] = useState([]);
 
+  const url = data.url;
+
   const getUsers = async () => {
-    let url = window.location.href.substring(
-      0,
-      window.location.href.lastIndexOf("/")
-    );
-    // url = "http://localhost:5000";
     try {
       const response = await axios.get(`${url}/users`);
       setBackendData(response.data.users);

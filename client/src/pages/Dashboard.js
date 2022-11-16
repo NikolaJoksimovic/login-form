@@ -1,16 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import data from "../url.json";
 
 const Dashboard = () => {
   const [userInfo, setUserInfo] = useState();
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies] = useCookies(["token"]);
+  const [loading, setLoading] = useState(true);
   const getDashboardInfo = async () => {
-    // ovde vise nisi na / nego na /dashboard ali window.location trebalo bi da resi to...//
-    let url =
-      window.location.href.substring(0, window.location.href.lastIndexOf("/")) +
-      "/dashboard";
-    // url = "http://localhost:5000/dashboard";
+    const url = data.url + "/dashboard";
     try {
       const response = await axios.get(`${url}/dashboard`, {
         headers: {
@@ -19,6 +17,7 @@ const Dashboard = () => {
       });
       if (response) {
         setUserInfo(response.data);
+        setLoading(false);
       }
     } catch (error) {}
   };
@@ -26,7 +25,9 @@ const Dashboard = () => {
   useEffect(() => {
     getDashboardInfo();
   }, []);
-  return (
+  return loading ? (
+    <h1>loading...</h1>
+  ) : (
     <section className='dashboard center-flex'>
       <h1>
         {userInfo?.username + "'s"}

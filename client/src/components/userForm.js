@@ -4,6 +4,7 @@ import CreateModal from "./createModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import data from "../url.json";
 
 const UserForm = () => {
   const navigate = useNavigate();
@@ -11,12 +12,8 @@ const UserForm = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [user, setUser] = useState({ username: "", password: "" });
   const [errorMsg, setErrorMsg] = useState(null);
-  let url = window.location.href.substring(
-    0,
-    window.location.href.lastIndexOf("/")
-  );
-  // url = "http://localhost:5000";
 
+  const url = data.url;
   // create acc request
   const handleClick = async (e) => {
     e.preventDefault();
@@ -29,7 +26,6 @@ const UserForm = () => {
       setCookie("token", token);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error.response.data.msg);
       setErrorMsg(error.response.data.msg);
     }
   };
