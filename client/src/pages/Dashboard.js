@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [cookies] = useCookies(["token"]);
   const [loading, setLoading] = useState(true);
   const getDashboardInfo = async () => {
-    const url = data.url + "/dashboard";
+    const url = data.url;
     try {
       const response = await axios.get(`${url}/dashboard`, {
         headers: {

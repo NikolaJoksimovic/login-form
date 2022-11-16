@@ -20,10 +20,10 @@ app.use(cors());
 
 // routes
 app.use("/", mainRouter);
-app.use("/users", mainRouter);
-app.use("/register", mainRouter);
-app.use("/login", mainRouter);
 app.use("/dashboard", authenticationMiddleware, dashRouter);
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public/build/index.html");
+});
 
 // middleware
 app.use(notFound);
