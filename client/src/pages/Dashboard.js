@@ -5,14 +5,15 @@ import data from "../url.json";
 
 const Dashboard = () => {
   const [userInfo, setUserInfo] = useState();
-  const [cookies] = useCookies(["token"]);
+  const [newCookies] = useCookies(["userInfo"]);
   const [loading, setLoading] = useState(true);
   const getDashboardInfo = async () => {
     const url = data.url;
     try {
+      console.log(newCookies.token);
       const response = await axios.get(`${url}/dashboard`, {
         headers: {
-          Authorization: `Bearer ${cookies.token}`,
+          Authorization: `Bearer ${newCookies.token}`,
         },
       });
       if (response) {
